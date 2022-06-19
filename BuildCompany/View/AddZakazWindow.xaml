@@ -1,0 +1,51 @@
+﻿<Window
+    x:Class="BuildCompany.View.AddZakazWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BuildCompany.View"
+    xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Добавление заказа"
+    Width="400"
+    Height="350"
+    mc:Ignorable="d">
+    <Grid>
+        <ComboBox
+            x:Name="Service"
+            Width="284"
+            Height="42"
+            Margin="0,10,0,0"
+            HorizontalAlignment="Center"
+            DisplayMemberPath="Name"
+            VerticalAlignment="Top"
+            material:HintAssist.Hint="Выберите услугу"
+            material:HintAssist.IsFloating="True" />
+        <Button
+            Width="284"
+            Height="42"
+            Margin="0,125,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Click="Button_Click_1"
+            Content="Добавить" />
+        <Button
+            Width="152"
+            Height="30"
+            Margin="0,175,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Click="Button_Click"
+            Content="Отмена" />
+        <ComboBox
+            x:Name="User"
+            Width="284"
+            Height="42"
+            Margin="0,57,0,0"
+            HorizontalAlignment="Center"
+            DisplayMemberPath="Fio"
+            VerticalAlignment="Top"
+            material:HintAssist.Hint="Выберите пользователя"
+            material:HintAssist.IsFloating="True" />
+    </Grid>
+</Window>

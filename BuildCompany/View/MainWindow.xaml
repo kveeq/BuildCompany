@@ -1,0 +1,1091 @@
+﻿<Window
+    x:Class="BuildCompany.View.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BuildCompany.View"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    ResizeMode="NoResize"
+    WindowState="Maximized"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3" />
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="Silver" />
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="Silver" />
+        <Style
+            x:Key="PlaceholderTextBoxStyle"
+            BasedOn="{StaticResource {x:Type TextBox}}"
+            TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border
+                            x:Name="border"
+                            Padding="{TemplateBinding Padding}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="True">
+                            <Grid>
+                                <ScrollViewer x:Name="PART_ContentHost" />
+                                <TextBlock
+                                    x:Name="textBlock"
+                                    Margin="2,2,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Foreground="#c9c9c9"
+                                    IsHitTestVisible="False"
+                                    Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                                    Visibility="Collapsed" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Text" Value="">
+                                <Setter TargetName="textBlock" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Opacity" Value="0.56" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TextBox.MouseOver.Border}" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TextBox.Focus.Border}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle
+                            Margin="2"
+                            SnapsToDevicePixels="true"
+                            Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                            StrokeDashArray="1 2"
+                            StrokeThickness="1" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD" />
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070" />
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD" />
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1" />
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6" />
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B" />
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4" />
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5" />
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383" />
+        <Style x:Key="ButtonStrelochkaStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}" />
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}" />
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="1" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter
+                                x:Name="contentPresenter"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Focusable="False"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <!--<Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>-->
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <!--<Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>-->
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource Button.Disabled.Background}" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Button.Disabled.Border}" />
+                                <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="{StaticResource Button.Disabled.Foreground}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <TabControl SelectionChanged="TabControl_SelectionChanged" Style="{StaticResource MaterialDesignNavigatilRailTabControl}">
+            <TabItem Width="150">
+                <TabItem.Header>
+                    <TextBlock
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Foreground="Gray"
+                        Text="Главная"
+                        TextWrapping="Wrap" />
+                </TabItem.Header>
+                <Grid>
+                    <ScrollViewer x:Name="qwer">
+                        <Grid
+                            x:Name="OsnovGridhome"
+                            Width="Auto"
+                            HorizontalAlignment="Stretch"
+                            Cursor="Arrow">
+
+                            <StackPanel>
+                                <Grid>
+                                    <Image
+                                        x:Name="Photo1BLOCK"
+                                        Height="500"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Source="/Resources/Photo1Blok.jpg"
+                                        Stretch="UniformToFill" />
+                                    <Grid Background="Black" Opacity="0.5" />
+
+                                    <Grid
+                                        Width="500"
+                                        Height="250"
+                                        Margin="50"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center">
+                                        <StackPanel VerticalAlignment="Center">
+                                            <TextBlock
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Top"
+                                                FontSize="40"
+                                                FontWeight="Bold"
+                                                Foreground="White"
+                                                Text="Строим самые крепкие и надежные дома"
+                                                TextWrapping="Wrap" />
+                                            <TextBlock
+                                                x:Name="LB_FrazaMan"
+                                                Margin="0,5,0,20"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Top"
+                                                FontSize="20"
+                                                Foreground="White"
+                                                Text="Каждый мужчина должен вырастить сына, посадить дерево, остальное сделает наша строительная компания!"
+                                                TextWrapping="Wrap" />
+                                            <DockPanel>
+                                                <Border
+                                                    Padding="5"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    BorderBrush="White"
+                                                    BorderThickness="2"
+                                                    CornerRadius="10">
+                                                    <Label
+                                                        x:Name="LB_MoreINFO"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Top"
+                                                        Content="Узнайте больше ниже"
+                                                        FontSize="20"
+                                                        Foreground="White" />
+                                                </Border>
+                                                <materialDesign:PackIcon
+                                                    Width="Auto"
+                                                    Height="50"
+                                                    Margin="10"
+                                                    VerticalAlignment="Stretch"
+                                                    Foreground="White"
+                                                    Kind="ArrowDownRight" />
+                                            </DockPanel>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                                <Label
+                                    x:Name="LB_About_Our_Company"
+                                    Margin="20"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    Content="О компании"
+                                    FontSize="45"
+                                    FontWeight="Bold"
+                                    Foreground="Black" />
+                                <Grid Height="800">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+
+                                    <Border Margin="80,20,20,20">
+                                        <Grid VerticalAlignment="Stretch" Background="White">
+                                            <StackPanel VerticalAlignment="Center">
+                                                <Image
+                                                    Height="100"
+                                                    Margin="20"
+                                                    Source="/Resources/guarantee-certificate.png" />
+                                                <TextBlock
+                                                    Margin="20"
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="20"
+                                                    FontWeight="Bold"
+                                                    Text="У нас разработан собственный контроль качества. Поэтому мы даем гарантию 10 лет на наши услуги."
+                                                    TextAlignment="Center"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+
+                                    <Border Grid.Column="1" Margin="40,20">
+                                        <Grid VerticalAlignment="Stretch" Background="White">
+                                            <StackPanel VerticalAlignment="Center">
+                                                <Image
+                                                    Height="100"
+                                                    Margin="20"
+                                                    Source="/Resources/house-design.png" />
+                                                <TextBlock
+                                                    Margin="20"
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="20"
+                                                    FontWeight="Bold"
+                                                    Text="Можете выбрать дом более чем из 50 типовых проектов или же мы разработаем для вас проект по вашим желаниям. "
+                                                    TextAlignment="Center"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+
+                                    <Border Grid.Column="2" Margin="20,20,80,20">
+                                        <Grid VerticalAlignment="Stretch" Background="White">
+                                            <StackPanel VerticalAlignment="Center">
+                                                <Image
+                                                    Height="100"
+                                                    Margin="20"
+                                                    Source="/Resources/document.png" />
+                                                <TextBlock
+                                                    Margin="20"
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="20"
+                                                    FontWeight="Bold"
+                                                    Text="Поможем получить разрешение на строительство и построим вам дом"
+                                                    TextAlignment="Center"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+
+                                    <Border Grid.Row="1" Margin="80,20,20,20">
+                                        <Grid VerticalAlignment="Stretch" Background="White">
+                                            <StackPanel VerticalAlignment="Center">
+                                                <Image
+                                                    Height="100"
+                                                    Margin="20"
+                                                    Source="/Resources/fence.png" />
+                                                <TextBlock
+                                                    Margin="20"
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="20"
+                                                    FontWeight="Bold"
+                                                    Text="Сделаем вам такой забор, который будет нравиться именно вам"
+                                                    TextAlignment="Center"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+
+                                    <Border
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Margin="40,20">
+                                        <Grid VerticalAlignment="Stretch" Background="White">
+                                            <StackPanel VerticalAlignment="Center">
+                                                <Image
+                                                    Height="100"
+                                                    Margin="20"
+                                                    Source="/Resources/plant.png" />
+                                                <TextBlock
+                                                    Margin="20"
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="20"
+                                                    FontWeight="Bold"
+                                                    Text="Обустроим придомовую территорию "
+                                                    TextAlignment="Center"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+
+                                    <Border
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        Margin="20,20,80,20">
+                                        <Grid VerticalAlignment="Stretch" Background="White">
+                                            <StackPanel VerticalAlignment="Center">
+                                                <Image
+                                                    Height="100"
+                                                    Margin="20"
+                                                    Source="/Resources/paint-roller.png" />
+                                                <TextBlock
+                                                    Margin="20"
+                                                    HorizontalAlignment="Center"
+                                                    FontSize="20"
+                                                    FontWeight="Bold"
+                                                    Text="Сделаем вам чистовой ремонт в доме"
+                                                    TextAlignment="Center"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                                <Grid Height="500">
+                                    <Image
+                                        VerticalAlignment="Center"
+                                        Source="/Images/BigHome.png"
+                                        Stretch="UniformToFill" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="2*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="5*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Border
+                                            Grid.Row="1"
+                                            Margin="20"
+                                            Background="White"
+                                            BorderBrush="Transparent"
+                                            CornerRadius="10"
+                                            Opacity="0.7" />
+                                        <StackPanel Grid.Row="1">
+                                            <TextBox
+                                                x:Name="TxTBName"
+                                                Margin="20,40,20,20"
+                                                HorizontalAlignment="Stretch"
+                                                HorizontalContentAlignment="Center"
+                                                VerticalContentAlignment="Center"
+                                                materialDesign:HintAssist.Hint="Ваше имя"
+                                                materialDesign:HintAssist.IsFloating="False"
+                                                BorderBrush="Black"
+                                                FontSize="20"
+                                                Foreground="Black"
+                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                TextWrapping="Wrap" />
+                                            <TextBox
+                                                x:Name="TxTBPhone"
+                                                Margin="20"
+                                                HorizontalAlignment="Stretch"
+                                                HorizontalContentAlignment="Center"
+                                                VerticalContentAlignment="Center"
+                                                materialDesign:HintAssist.Hint="Ваш номер тел."
+                                                materialDesign:HintAssist.IsFloating="False"
+                                                BorderBrush="Black"
+                                                FontSize="20"
+                                                Foreground="Black"
+                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                TextWrapping="Wrap" />
+                                            <TextBox
+                                                x:Name="TxTBEmail"
+                                                Margin="20"
+                                                HorizontalAlignment="Stretch"
+                                                HorizontalContentAlignment="Center"
+                                                VerticalContentAlignment="Center"
+                                                materialDesign:HintAssist.Hint="Ваш E-mail"
+                                                materialDesign:HintAssist.IsFloating="False"
+                                                BorderBrush="Black"
+                                                FontSize="20"
+                                                Foreground="Black"
+                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                TextWrapping="Wrap" />
+                                            <TextBox
+                                                x:Name="TxTBsybject"
+                                                Margin="20"
+                                                HorizontalAlignment="Stretch"
+                                                HorizontalContentAlignment="Center"
+                                                VerticalContentAlignment="Center"
+                                                materialDesign:HintAssist.Hint="Тема сообщения"
+                                                materialDesign:HintAssist.IsFloating="False"
+                                                BorderBrush="Black"
+                                                FontSize="20"
+                                                Foreground="Black"
+                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                        <Border
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            Margin="20"
+                                            Background="White"
+                                            BorderBrush="Transparent"
+                                            CornerRadius="10"
+                                            Opacity="0.5" />
+                                        <TextBox
+                                            x:Name="txtboxotziv"
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            Margin="30"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            HorizontalContentAlignment="Left"
+                                            VerticalContentAlignment="Top"
+                                            materialDesign:HintAssist.Hint="Ваше сообщения"
+                                            materialDesign:HintAssist.IsFloating="False"
+                                            AcceptsReturn="True"
+                                            FontSize="22"
+                                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                            TextWrapping="Wrap"
+                                            VerticalScrollBarVisibility="Auto" />
+                                        <Button
+                                            x:Name="BTN_OTZIV"
+                                            Grid.Row="2"
+                                            Grid.ColumnSpan="3"
+                                            Width="Auto"
+                                            Height="Auto"
+                                            Padding="25,10"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Top"
+                                            materialDesign:ButtonAssist.CornerRadius="10"
+                                            Background="#20B2AA"
+                                            BorderBrush="Transparent"
+                                            Content="Отправить"
+                                            FontSize="25"
+                                            Foreground="White"
+                                            Style="{StaticResource MaterialDesignRaisedDarkButton}" />
+                                        <Label
+                                            x:Name="LB_Otziv"
+                                            Grid.ColumnSpan="3"
+                                            Margin="10"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Top"
+                                            Content="Ваш отзыв"
+                                            FontSize="30"
+                                            FontWeight="Bold"
+                                            Foreground="Black" />
+                                    </Grid>
+                                </Grid>
+                                <Grid Background="#0A0621">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Margin="20" HorizontalAlignment="Center">
+                                        <DockPanel>
+                                            <materialDesign:PackIcon
+                                                Width="25"
+                                                Height="Auto"
+                                                VerticalAlignment="Stretch"
+                                                Foreground="White"
+                                                Kind="Phone" />
+                                            <Label
+                                                x:Name="LB_Phone"
+                                                Margin="20,0"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Content="Телефон"
+                                                FontSize="25"
+                                                FontWeight="Bold"
+                                                Foreground="White" />
+                                        </DockPanel>
+                                        <Label
+                                            x:Name="LB_PhoneCompany_Copy"
+                                            Margin="0,0,0,20"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Content="+7(960)-083-77-75"
+                                            FontSize="25"
+                                            Foreground="White" />
+
+                                        <DockPanel>
+                                            <materialDesign:PackIcon
+                                                Width="25"
+                                                Height="Auto"
+                                                VerticalAlignment="Stretch"
+                                                Foreground="White"
+                                                Kind="EMail" />
+                                            <Label
+                                                x:Name="LB_Mail"
+                                                Margin="20,0"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Content="Почта"
+                                                FontSize="25"
+                                                FontWeight="Bold"
+                                                Foreground="White" />
+                                        </DockPanel>
+                                        <Label
+                                            x:Name="LB_MailM"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Content="CREW@BK.RU"
+                                            FontSize="25"
+                                            Foreground="White" />
+                                    </StackPanel>
+                                    <StackPanel
+                                        Grid.Column="1"
+                                        Margin="20"
+                                        HorizontalAlignment="Center">
+                                        <DockPanel>
+                                            <materialDesign:PackIcon
+                                                Width="25"
+                                                Height="Auto"
+                                                VerticalAlignment="Stretch"
+                                                Foreground="White"
+                                                Kind="MapMarker" />
+                                            <Label
+                                                x:Name="LB_Address"
+                                                Margin="20,0"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Content="Адрес"
+                                                FontSize="25"
+                                                FontWeight="Bold"
+                                                Foreground="White" />
+                                        </DockPanel>
+                                        <Label
+                                            x:Name="LB_Address1"
+                                            Margin="0,0,0,20"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Content="г.Казань Башня &quot;Tower&quot; "
+                                            FontSize="25"
+                                            Foreground="White" />
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+            <TabItem Width="150">
+                <TabItem.Header>
+                    <TextBlock
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Foreground="Gray"
+                        Text="Услуги"
+                        TextWrapping="Wrap" />
+                </TabItem.Header>
+                <Grid Background="#FFE5E5E5">
+                    <ListView
+                        x:Name="HousesLstView1"
+                        Margin="0,20"
+                        HorizontalAlignment="Center"
+                        Background="Transparent"
+                        Style="{DynamicResource MaterialDesignCardsListBox}">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    Width="300"
+                                    Height="200"
+                                    Margin="10"
+                                    Background="#fff">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
+                                    </Grid.RowDefinitions>
+                                    <Label
+                                        Grid.Row="0"
+                                        HorizontalAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Content="{Binding Name}"
+                                        FontSize="30"
+                                        FontWeight="Bold"
+                                        Foreground="Black" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        HorizontalAlignment="Left"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text="{Binding Description}"
+                                        TextWrapping="Wrap" />
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                        <Button
+                                            HorizontalAlignment="Stretch"
+                                            Click="Button_Click"
+                                            CommandParameter="{Binding Id}"
+                                            Content="Заказать" />
+                                        <TextBlock
+                                            Grid.Row="2"
+                                            Margin="130,0,0,0"
+                                            HorizontalAlignment="Right"
+                                            FontSize="16"
+                                            Foreground="Black"
+                                            Text="{Binding Price}" />
+                                        <TextBlock
+                                            Grid.Row="2"
+                                            HorizontalAlignment="Right"
+                                            FontSize="16"
+                                            Foreground="Black"
+                                            Text=" Р" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button
+                        x:Name="AddServiceBtn"
+                        Margin="0,0,10,10"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Click="AddServiceBtn_Click"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}">
+                        <materialDesign:PackIcon Kind="Add" />
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="Zakazi" Width="150">
+                <TabItem.Header>
+                    <TextBlock
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Foreground="Gray"
+                        Text="Заказы"
+                        TextWrapping="Wrap" />
+                </TabItem.Header>
+                <Grid Background="#FFE5E5E5">
+                    <ListView
+                        x:Name="ZakazLstView"
+                        Margin="0,20"
+                        HorizontalAlignment="Center"
+                        Background="Transparent"
+                        Style="{DynamicResource MaterialDesignCardsListBox}">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    Width="300"
+                                    Height="250"
+                                    Margin="10"
+                                    Background="#fff">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="50" />
+                                    </Grid.RowDefinitions>
+                                    <Label
+                                        Grid.Row="0"
+                                        HorizontalAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Content="{Binding Name}"
+                                        DataContext="{Binding Services}"
+                                        FontSize="18"
+                                        FontWeight="Bold"
+                                        Foreground="Black" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        HorizontalAlignment="Left"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text="{Binding Date}"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        HorizontalAlignment="Right"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text="Заказ"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        HorizontalAlignment="Left"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text="{Binding AcceptDate}"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        HorizontalAlignment="Right"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text="Принятие"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Grid.Row="3"
+                                        HorizontalAlignment="Left"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text="{Binding ExitDate}"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Grid.Row="3"
+                                        HorizontalAlignment="Right"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text="конец"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Grid.Row="4"
+                                        Margin="0,0,15,0"
+                                        HorizontalAlignment="Right"
+                                        DataContext="{Binding Services}"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text="{Binding Price}"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Grid.Row="4"
+                                        HorizontalAlignment="Right"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text=" P"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Grid.Row="5"
+                                        Margin="10"
+                                        Padding="5"
+                                        HorizontalAlignment="Right"
+                                        Background="Green"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text="{Binding Status}"
+                                        TextWrapping="Wrap" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button
+                        x:Name="AddZakazBtn"
+                        Margin="0,0,10,10"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Click="AddZakazBtn_Click"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}">
+                        <materialDesign:PackIcon Kind="Add" />
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem Width="150">
+                <TabItem.Header>
+                    <TextBlock
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Foreground="Gray"
+                        Text="Аренда"
+                        TextWrapping="Wrap" />
+                </TabItem.Header>
+                <Grid Background="#FFE5E5E5">
+                    <ListView
+                        x:Name="OborudovanieLstView"
+                        Margin="0,20"
+                        HorizontalAlignment="Center"
+                        Background="Transparent"
+                        Style="{DynamicResource MaterialDesignCardsListBox}">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    Width="300"
+                                    Height="200"
+                                    Margin="10"
+                                    Background="#fff">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
+                                    </Grid.RowDefinitions>
+                                    <Label
+                                        Grid.Row="0"
+                                        HorizontalAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Content="{Binding Name}"
+                                        FontSize="30"
+                                        FontWeight="Bold"
+                                        Foreground="Black" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        HorizontalAlignment="Left"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text="{Binding Description}"
+                                        TextWrapping="Wrap" />
+                                    <Button
+                                        Grid.Row="2"
+                                        HorizontalAlignment="Right"
+                                        Click="Button_Click_1"
+                                        CommandParameter="{Binding Id}"
+                                        Content="Взять" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button
+                        x:Name="EquipmentAddBtn"
+                        Margin="0,0,10,10"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Click="EquipmentAddBtn_Click"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}">
+                        <materialDesign:PackIcon Kind="Add" />
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem Width="150">
+                <TabItem.Header>
+                    <TextBlock
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Foreground="Gray"
+                        Text="Арендованные оборудования"
+                        TextWrapping="Wrap" />
+                </TabItem.Header>
+                <ListView
+                    x:Name="RentLstView"
+                    Margin="0,20"
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    Style="{DynamicResource MaterialDesignCardsListBox}">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                Width="300"
+                                Height="200"
+                                Margin="10"
+                                Background="#fff">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <Label
+                                    Grid.Row="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Content="{Binding Name}"
+                                    DataContext="{Binding Equipment}"
+                                    FontSize="18"
+                                    FontWeight="Bold"
+                                    Foreground="Black" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Left"
+                                    FontSize="16"
+                                    Foreground="Black"
+                                    Text="{Binding DateStart}"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Right"
+                                    FontSize="16"
+                                    Foreground="Black"
+                                    Text="начало"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Grid.Row="2"
+                                    HorizontalAlignment="Left"
+                                    FontSize="16"
+                                    Foreground="Black"
+                                    Text="{Binding DateEnd}"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Grid.Row="2"
+                                    HorizontalAlignment="Right"
+                                    FontSize="16"
+                                    Foreground="Black"
+                                    Text="конец"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Grid.Row="3"
+                                    Margin="10"
+                                    Padding="5"
+                                    HorizontalAlignment="Right"
+                                    Background="Green"
+                                    FontSize="16"
+                                    Foreground="Black"
+                                    Text="{Binding Status}"
+                                    TextWrapping="Wrap" />
+                                <Button
+                                    Grid.Row="3"
+                                    Padding="5"
+                                    HorizontalAlignment="Left"
+                                    Background="Red"
+                                    Click="Button_Click_2"
+                                    CommandParameter="{Binding Id}"
+                                    Content="Завершить"
+                                    IsEnabled="{Binding Statuss}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+
+            <TabItem x:Name="Zayavki" Width="150">
+                <TabItem.Header>
+                    <TextBlock
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Foreground="Gray"
+                        Text="Заявки"
+                        TextWrapping="Wrap" />
+                </TabItem.Header>
+                <ListView
+                    x:Name="ZayavkiLstView"
+                    Margin="0,20"
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    Style="{DynamicResource MaterialDesignCardsListBox}">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                Width="300"
+                                Height="300"
+                                Margin="10"
+                                Background="#fff">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <Label
+                                    Grid.Row="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Content="{Binding Name}"
+                                    DataContext="{Binding Services}"
+                                    FontSize="18"
+                                    FontWeight="Bold"
+                                    Foreground="Black" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Left"
+                                    FontSize="16"
+                                    Foreground="Black"
+                                    Text="{Binding Date}"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Right"
+                                    FontSize="16"
+                                    Foreground="Black"
+                                    Text="начало"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Grid.Row="2"
+                                    HorizontalAlignment="Left"
+                                    FontSize="16"
+                                    Foreground="Black"
+                                    Text="{Binding AcceptDate}"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Grid.Row="2"
+                                    HorizontalAlignment="Right"
+                                    FontSize="16"
+                                    Foreground="Black"
+                                    Text="Принятие"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Grid.Row="3"
+                                    HorizontalAlignment="Left"
+                                    FontSize="16"
+                                    Foreground="Black"
+                                    Text="{Binding ExitDate}"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Grid.Row="3"
+                                    HorizontalAlignment="Right"
+                                    FontSize="16"
+                                    Foreground="Black"
+                                    Text="конец"
+                                    TextWrapping="Wrap" />
+                                <Button
+                                    Grid.Row="4"
+                                    Padding="5"
+                                    HorizontalAlignment="Right"
+                                    Background="Green"
+                                    Click="Button_Click_3"
+                                    CommandParameter="{Binding Id}"
+                                    Content="Принять"
+                                    IsEnabled="{Binding Accept}" />
+                                <Button
+                                    Grid.Row="4"
+                                    Padding="5"
+                                    HorizontalAlignment="Left"
+                                    Background="Red"
+                                    Click="Button_Click_4"
+                                    CommandParameter="{Binding Id}"
+                                    Content="Отклонить"
+                                    IsEnabled="{Binding Accept}" />
+                                <Button
+                                    Grid.Row="5"
+                                    Padding="5"
+                                    HorizontalAlignment="Stretch"
+                                    Background="Red"
+                                    Click="Button_Click_5"
+                                    CommandParameter="{Binding Id}"
+                                    Content="Завершить"
+                                    IsEnabled="{Binding Statuss}" />
+                                <TextBlock
+                                    Grid.Row="6"
+                                    Margin="10"
+                                    Padding="5"
+                                    HorizontalAlignment="Stretch"
+                                    Background="Green"
+                                    FontSize="21"
+                                    Foreground="Black"
+                                    Text="{Binding Status}"
+                                    TextWrapping="Wrap" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
