@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -160,6 +162,37 @@ namespace BuildCompany.View
             App.db.SaveChanges();
             Update();
             MessageBox.Show("Вы успешно отклонили заказ");
+        }
+
+        private void BTN_OTZIV_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(TxTBEmail.Text) || string.IsNullOrEmpty(TxTBName.Text) || string.IsNullOrEmpty(TxTBPhone.Text) || string.IsNullOrEmpty(txtboxotziv.Text) || string.IsNullOrEmpty(TxTBsybject.Text))
+            {
+                MessageBox.Show("Пожалуйста введите символы во все поля!");
+            }
+            else
+            {
+                try
+                {
+                    SmtpClient smtpClient = new SmtpClient();
+                    smtpClient.Credentials = new NetworkCredential("Sasha-kr90@bk.ru", "Tge2MzEYdDfZ8CPmRQ3B"); // тут менять логин и пароль 
+                    smtpClient.Host = ("smtp.mail.ru");
+                    smtpClient.Port = 587;
+                    smtpClient.EnableSsl = true;
+                    MailMessage mailMessage = new MailMessage();
+                    mailMessage.From = new MailAddress("Sasha-kr90@bk.ru");
+                    mailMessage.To.Add(new MailAddress(TxTBEmail.Text));
+                    mailMessage.Subject = "Тема сообщения: " + TxTBsybject.Text;
+                    mailMessage.IsBodyHtml = true;
+                    mailMessage.Body = "Имя: " + TxTBName.Text + "<br>" + "Телефон: " + TxTBPhone.Text + "<br>" + "Почта:" + TxTBEmail.Text + "<br>" + "Текст сообщения: " + txtboxotziv.Text;
+                    smtpClient.Send(mailMessage);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }
         }
     }
 }

@@ -466,6 +466,7 @@
                                             VerticalAlignment="Top"
                                             materialDesign:ButtonAssist.CornerRadius="10"
                                             Background="#20B2AA"
+                                            Click="BTN_OTZIV_Click"
                                             BorderBrush="Transparent"
                                             Content="Отправить"
                                             FontSize="25"
