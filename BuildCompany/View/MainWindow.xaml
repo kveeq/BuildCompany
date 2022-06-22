@@ -145,436 +145,51 @@
                         TextWrapping="Wrap" />
                 </TabItem.Header>
                 <Grid>
-                    <ScrollViewer x:Name="qwer">
-                        <Grid
-                            x:Name="OsnovGridhome"
-                            Width="Auto"
-                            HorizontalAlignment="Stretch"
-                            Cursor="Arrow">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="23*" />
+                        <ColumnDefinition Width="27*" />
+                    </Grid.ColumnDefinitions>
 
-                            <StackPanel>
-                                <Grid>
-                                    <Image
-                                        x:Name="Photo1BLOCK"
-                                        Height="500"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Source="/Resources/Photo1Blok.jpg"
-                                        Stretch="UniformToFill" />
-                                    <Grid Background="Black" Opacity="0.5" />
-
-                                    <Grid
-                                        Width="500"
-                                        Height="250"
-                                        Margin="50"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center">
-                                        <StackPanel VerticalAlignment="Center">
-                                            <TextBlock
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                FontSize="40"
-                                                FontWeight="Bold"
-                                                Foreground="White"
-                                                Text="Строим самые крепкие и надежные дома"
-                                                TextWrapping="Wrap" />
-                                            <TextBlock
-                                                x:Name="LB_FrazaMan"
-                                                Margin="0,5,0,20"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                FontSize="20"
-                                                Foreground="White"
-                                                Text="Каждый мужчина должен вырастить сына, посадить дерево, остальное сделает наша строительная компания!"
-                                                TextWrapping="Wrap" />
-                                            <DockPanel>
-                                                <Border
-                                                    Padding="5"
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Top"
-                                                    BorderBrush="White"
-                                                    BorderThickness="2"
-                                                    CornerRadius="10">
-                                                    <Label
-                                                        x:Name="LB_MoreINFO"
-                                                        HorizontalAlignment="Left"
-                                                        VerticalAlignment="Top"
-                                                        Content="Узнайте больше ниже"
-                                                        FontSize="20"
-                                                        Foreground="White" />
-                                                </Border>
-                                                <materialDesign:PackIcon
-                                                    Width="Auto"
-                                                    Height="50"
-                                                    Margin="10"
-                                                    VerticalAlignment="Stretch"
-                                                    Foreground="White"
-                                                    Kind="ArrowDownRight" />
-                                            </DockPanel>
-                                        </StackPanel>
-                                    </Grid>
-                                </Grid>
-                                <Label
-                                    x:Name="LB_About_Our_Company"
-                                    Margin="20"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Top"
-                                    Content="О компании"
-                                    FontSize="45"
-                                    FontWeight="Bold"
-                                    Foreground="Black" />
-                                <Grid Height="800">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-
-                                    <Border Margin="80,20,20,20">
-                                        <Grid VerticalAlignment="Stretch" Background="White">
-                                            <StackPanel VerticalAlignment="Center">
-                                                <Image
-                                                    Height="100"
-                                                    Margin="20"
-                                                    Source="/Resources/guarantee-certificate.png" />
-                                                <TextBlock
-                                                    Margin="20"
-                                                    HorizontalAlignment="Center"
-                                                    FontSize="20"
-                                                    FontWeight="Bold"
-                                                    Text="У нас разработан собственный контроль качества. Поэтому мы даем гарантию 10 лет на наши услуги."
-                                                    TextAlignment="Center"
-                                                    TextWrapping="WrapWithOverflow" />
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
-
-                                    <Border Grid.Column="1" Margin="40,20">
-                                        <Grid VerticalAlignment="Stretch" Background="White">
-                                            <StackPanel VerticalAlignment="Center">
-                                                <Image
-                                                    Height="100"
-                                                    Margin="20"
-                                                    Source="/Resources/house-design.png" />
-                                                <TextBlock
-                                                    Margin="20"
-                                                    HorizontalAlignment="Center"
-                                                    FontSize="20"
-                                                    FontWeight="Bold"
-                                                    Text="Можете выбрать дом более чем из 50 типовых проектов или же мы разработаем для вас проект по вашим желаниям. "
-                                                    TextAlignment="Center"
-                                                    TextWrapping="WrapWithOverflow" />
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
-
-                                    <Border Grid.Column="2" Margin="20,20,80,20">
-                                        <Grid VerticalAlignment="Stretch" Background="White">
-                                            <StackPanel VerticalAlignment="Center">
-                                                <Image
-                                                    Height="100"
-                                                    Margin="20"
-                                                    Source="/Resources/document.png" />
-                                                <TextBlock
-                                                    Margin="20"
-                                                    HorizontalAlignment="Center"
-                                                    FontSize="20"
-                                                    FontWeight="Bold"
-                                                    Text="Поможем получить разрешение на строительство и построим вам дом"
-                                                    TextAlignment="Center"
-                                                    TextWrapping="WrapWithOverflow" />
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
-
-                                    <Border Grid.Row="1" Margin="80,20,20,20">
-                                        <Grid VerticalAlignment="Stretch" Background="White">
-                                            <StackPanel VerticalAlignment="Center">
-                                                <Image
-                                                    Height="100"
-                                                    Margin="20"
-                                                    Source="/Resources/fence.png" />
-                                                <TextBlock
-                                                    Margin="20"
-                                                    HorizontalAlignment="Center"
-                                                    FontSize="20"
-                                                    FontWeight="Bold"
-                                                    Text="Сделаем вам такой забор, который будет нравиться именно вам"
-                                                    TextAlignment="Center"
-                                                    TextWrapping="WrapWithOverflow" />
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
-
-                                    <Border
-                                        Grid.Row="1"
-                                        Grid.Column="1"
-                                        Margin="40,20">
-                                        <Grid VerticalAlignment="Stretch" Background="White">
-                                            <StackPanel VerticalAlignment="Center">
-                                                <Image
-                                                    Height="100"
-                                                    Margin="20"
-                                                    Source="/Resources/plant.png" />
-                                                <TextBlock
-                                                    Margin="20"
-                                                    HorizontalAlignment="Center"
-                                                    FontSize="20"
-                                                    FontWeight="Bold"
-                                                    Text="Обустроим придомовую территорию "
-                                                    TextAlignment="Center"
-                                                    TextWrapping="WrapWithOverflow" />
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
-
-                                    <Border
-                                        Grid.Row="1"
-                                        Grid.Column="2"
-                                        Margin="20,20,80,20">
-                                        <Grid VerticalAlignment="Stretch" Background="White">
-                                            <StackPanel VerticalAlignment="Center">
-                                                <Image
-                                                    Height="100"
-                                                    Margin="20"
-                                                    Source="/Resources/paint-roller.png" />
-                                                <TextBlock
-                                                    Margin="20"
-                                                    HorizontalAlignment="Center"
-                                                    FontSize="20"
-                                                    FontWeight="Bold"
-                                                    Text="Сделаем вам чистовой ремонт в доме"
-                                                    TextAlignment="Center"
-                                                    TextWrapping="WrapWithOverflow" />
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
-                                </Grid>
-                                <Grid Height="500">
-                                    <Image
-                                        VerticalAlignment="Center"
-                                        Source="/Images/BigHome.png"
-                                        Stretch="UniformToFill" />
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="2*" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="2*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*" />
-                                            <RowDefinition Height="5*" />
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
-                                        <Border
-                                            Grid.Row="1"
-                                            Margin="20"
-                                            Background="White"
-                                            BorderBrush="Transparent"
-                                            CornerRadius="10"
-                                            Opacity="0.7" />
-                                        <StackPanel Grid.Row="1">
-                                            <TextBox
-                                                x:Name="TxTBName"
-                                                Margin="20,40,20,20"
-                                                HorizontalAlignment="Stretch"
-                                                HorizontalContentAlignment="Center"
-                                                VerticalContentAlignment="Center"
-                                                materialDesign:HintAssist.Hint="Ваше имя"
-                                                materialDesign:HintAssist.IsFloating="False"
-                                                BorderBrush="Black"
-                                                FontSize="20"
-                                                Foreground="Black"
-                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                TextWrapping="Wrap" />
-                                            <TextBox
-                                                x:Name="TxTBPhone"
-                                                Margin="20"
-                                                HorizontalAlignment="Stretch"
-                                                HorizontalContentAlignment="Center"
-                                                VerticalContentAlignment="Center"
-                                                materialDesign:HintAssist.Hint="Ваш номер тел."
-                                                materialDesign:HintAssist.IsFloating="False"
-                                                BorderBrush="Black"
-                                                FontSize="20"
-                                                Foreground="Black"
-                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                TextWrapping="Wrap" />
-                                            <TextBox
-                                                x:Name="TxTBEmail"
-                                                Margin="20"
-                                                HorizontalAlignment="Stretch"
-                                                HorizontalContentAlignment="Center"
-                                                VerticalContentAlignment="Center"
-                                                materialDesign:HintAssist.Hint="Ваш E-mail"
-                                                materialDesign:HintAssist.IsFloating="False"
-                                                BorderBrush="Black"
-                                                FontSize="20"
-                                                Foreground="Black"
-                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                TextWrapping="Wrap" />
-                                            <TextBox
-                                                x:Name="TxTBsybject"
-                                                Margin="20"
-                                                HorizontalAlignment="Stretch"
-                                                HorizontalContentAlignment="Center"
-                                                VerticalContentAlignment="Center"
-                                                materialDesign:HintAssist.Hint="Тема сообщения"
-                                                materialDesign:HintAssist.IsFloating="False"
-                                                BorderBrush="Black"
-                                                FontSize="20"
-                                                Foreground="Black"
-                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                                TextWrapping="Wrap" />
-                                        </StackPanel>
-                                        <Border
-                                            Grid.Row="1"
-                                            Grid.Column="2"
-                                            Margin="20"
-                                            Background="White"
-                                            BorderBrush="Transparent"
-                                            CornerRadius="10"
-                                            Opacity="0.5" />
-                                        <TextBox
-                                            x:Name="txtboxotziv"
-                                            Grid.Row="1"
-                                            Grid.Column="2"
-                                            Margin="30"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch"
-                                            HorizontalContentAlignment="Left"
-                                            VerticalContentAlignment="Top"
-                                            materialDesign:HintAssist.Hint="Ваше сообщения"
-                                            materialDesign:HintAssist.IsFloating="False"
-                                            AcceptsReturn="True"
-                                            FontSize="22"
-                                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                            TextWrapping="Wrap"
-                                            VerticalScrollBarVisibility="Auto" />
-                                        <Button
-                                            x:Name="BTN_OTZIV"
-                                            Grid.Row="2"
-                                            Grid.ColumnSpan="3"
-                                            Width="Auto"
-                                            Height="Auto"
-                                            Padding="25,10"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Top"
-                                            materialDesign:ButtonAssist.CornerRadius="10"
-                                            Background="#20B2AA"
-                                            Click="BTN_OTZIV_Click"
-                                            BorderBrush="Transparent"
-                                            Content="Отправить"
-                                            FontSize="25"
-                                            Foreground="White"
-                                            Style="{StaticResource MaterialDesignRaisedDarkButton}" />
-                                        <Label
-                                            x:Name="LB_Otziv"
-                                            Grid.ColumnSpan="3"
-                                            Margin="10"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Top"
-                                            Content="Ваш отзыв"
-                                            FontSize="30"
-                                            FontWeight="Bold"
-                                            Foreground="Black" />
-                                    </Grid>
-                                </Grid>
-                                <Grid Background="#0A0621">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Margin="20" HorizontalAlignment="Center">
-                                        <DockPanel>
-                                            <materialDesign:PackIcon
-                                                Width="25"
-                                                Height="Auto"
-                                                VerticalAlignment="Stretch"
-                                                Foreground="White"
-                                                Kind="Phone" />
-                                            <Label
-                                                x:Name="LB_Phone"
-                                                Margin="20,0"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Center"
-                                                Content="Телефон"
-                                                FontSize="25"
-                                                FontWeight="Bold"
-                                                Foreground="White" />
-                                        </DockPanel>
-                                        <Label
-                                            x:Name="LB_PhoneCompany_Copy"
-                                            Margin="0,0,0,20"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            Content="+7(960)-083-77-75"
-                                            FontSize="25"
-                                            Foreground="White" />
-
-                                        <DockPanel>
-                                            <materialDesign:PackIcon
-                                                Width="25"
-                                                Height="Auto"
-                                                VerticalAlignment="Stretch"
-                                                Foreground="White"
-                                                Kind="EMail" />
-                                            <Label
-                                                x:Name="LB_Mail"
-                                                Margin="20,0"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Center"
-                                                Content="Почта"
-                                                FontSize="25"
-                                                FontWeight="Bold"
-                                                Foreground="White" />
-                                        </DockPanel>
-                                        <Label
-                                            x:Name="LB_MailM"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            Content="CREW@BK.RU"
-                                            FontSize="25"
-                                            Foreground="White" />
-                                    </StackPanel>
-                                    <StackPanel
-                                        Grid.Column="1"
-                                        Margin="20"
-                                        HorizontalAlignment="Center">
-                                        <DockPanel>
-                                            <materialDesign:PackIcon
-                                                Width="25"
-                                                Height="Auto"
-                                                VerticalAlignment="Stretch"
-                                                Foreground="White"
-                                                Kind="MapMarker" />
-                                            <Label
-                                                x:Name="LB_Address"
-                                                Margin="20,0"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Center"
-                                                Content="Адрес"
-                                                FontSize="25"
-                                                FontWeight="Bold"
-                                                Foreground="White" />
-                                        </DockPanel>
-                                        <Label
-                                            x:Name="LB_Address1"
-                                            Margin="0,0,0,20"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            Content="г.Казань Башня &quot;Tower&quot; "
-                                            FontSize="25"
-                                            Foreground="White" />
-                                    </StackPanel>
-                                </Grid>
-                            </StackPanel>
-                        </Grid>
-                    </ScrollViewer>
+                    <StackPanel
+                    Background="#e9e9e9"
+                        Grid.Column="0"
+                        Width="200"
+                        Height="300"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        <TextBox
+                            x:Name="Fio"
+                            Margin="0,0,0,10"
+                            IsReadOnly="true"
+                            Text="{Binding Fio}" />
+                        <TextBox
+                            Margin="0,0,0,10"
+                            x:Name="Adres"
+                            IsReadOnly="true"
+                            Text="{Binding Adres}" />
+                        <TextBox
+                            x:Name="tel"
+                            Margin="0,0,0,10"
+                            IsReadOnly="true"
+                            Text="{Binding TelNumber}" />
+                        <Button
+                            x:Name="reductProfileBtn"
+                            Margin="0,10,0,0"
+                            Click="reductProfileBtn_Click"
+                            CommandParameter="{Binding Id}"
+                            Content="Редактировать" />
+                        </StackPanel>
+                    </Grid>
+                    <Button
+                        x:Name="AddUserBtn"
+                        Margin="0,0,10,10"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Click="AddUserBtn_Click"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}">
+                        <materialDesign:PackIcon Kind="Add" />
+                    </Button>
                 </Grid>
             </TabItem>
             <TabItem Width="150">
@@ -592,6 +207,7 @@
                         Margin="0,20"
                         HorizontalAlignment="Center"
                         Background="Transparent"
+                        SelectionChanged="HousesLstView1_SelectionChanged"
                         Style="{DynamicResource MaterialDesignCardsListBox}">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -885,13 +501,15 @@
                         <DataTemplate>
                             <Grid
                                 Width="300"
-                                Height="200"
+                                Height="290"
                                 Margin="10"
                                 Background="#fff">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="50" />
                                     <RowDefinition Height="30" />
                                     <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="90" />
                                     <RowDefinition Height="50" />
                                 </Grid.RowDefinitions>
                                 <Label
@@ -933,6 +551,37 @@
                                     TextWrapping="Wrap" />
                                 <TextBlock
                                     Grid.Row="3"
+                                    HorizontalAlignment="Right"
+                                    FontSize="16"
+                                    Foreground="Black"
+                                    Text="{Binding Price}"
+                                    TextWrapping="Wrap" />
+                                <StackPanel Grid.Row="4">
+                                    <Label Content="Клиент:" />
+                                    <TextBlock
+                                        HorizontalAlignment="Right"
+                                        DataContext="{Binding User}"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text="{Binding Fio}"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        HorizontalAlignment="Right"
+                                        DataContext="{Binding User}"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text="{Binding TelNumber}"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        HorizontalAlignment="Right"
+                                        DataContext="{Binding User}"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text="{Binding Adres}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                                <TextBlock
+                                    Grid.Row="5"
                                     Margin="10"
                                     Padding="5"
                                     HorizontalAlignment="Right"
@@ -942,7 +591,7 @@
                                     Text="{Binding Status}"
                                     TextWrapping="Wrap" />
                                 <Button
-                                    Grid.Row="3"
+                                    Grid.Row="5"
                                     Padding="5"
                                     HorizontalAlignment="Left"
                                     Background="Red"
@@ -950,6 +599,7 @@
                                     CommandParameter="{Binding Id}"
                                     Content="Завершить"
                                     IsEnabled="{Binding Statuss}" />
+
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -981,7 +631,7 @@
                         <DataTemplate>
                             <Grid
                                 Width="300"
-                                Height="300"
+                                Height="400"
                                 Margin="10"
                                 Background="#fff">
                                 <Grid.RowDefinitions>
@@ -989,6 +639,8 @@
                                     <RowDefinition Height="30" />
                                     <RowDefinition Height="30" />
                                     <RowDefinition Height="30" />
+                                    <RowDefinition Height="70" />
+                                    <RowDefinition Height="90" />
                                     <RowDefinition Height="50" />
                                     <RowDefinition Height="50" />
                                     <RowDefinition Height="50" />
@@ -1044,8 +696,53 @@
                                     Foreground="Black"
                                     Text="конец"
                                     TextWrapping="Wrap" />
+
+                                <StackPanel Grid.Row="4">
+                                    <Label Content="Сотрудник:" />
+                                    <TextBlock
+                                        HorizontalAlignment="Right"
+                                        DataContext="{Binding Employee}"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text="{Binding Fio}"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Grid.Row="4"
+                                        HorizontalAlignment="Right"
+                                        DataContext="{Binding Employee}"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text="{Binding TelNumber}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="5">
+                                    <Label Content="Клиент:" />
+                                    <TextBlock
+                                        HorizontalAlignment="Right"
+                                        DataContext="{Binding User}"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text="{Binding Fio}"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Grid.Row="4"
+                                        HorizontalAlignment="Right"
+                                        DataContext="{Binding User}"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text="{Binding TelNumber}"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Grid.Row="4"
+                                        HorizontalAlignment="Right"
+                                        DataContext="{Binding User}"
+                                        FontSize="16"
+                                        Foreground="Black"
+                                        Text="{Binding Adres}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
                                 <Button
-                                    Grid.Row="4"
+                                    Grid.Row="6"
                                     Padding="5"
                                     HorizontalAlignment="Right"
                                     Background="Green"
@@ -1054,7 +751,7 @@
                                     Content="Принять"
                                     IsEnabled="{Binding Accept}" />
                                 <Button
-                                    Grid.Row="4"
+                                    Grid.Row="6"
                                     Padding="5"
                                     HorizontalAlignment="Left"
                                     Background="Red"
@@ -1063,7 +760,7 @@
                                     Content="Отклонить"
                                     IsEnabled="{Binding Accept}" />
                                 <Button
-                                    Grid.Row="5"
+                                    Grid.Row="7"
                                     Padding="5"
                                     HorizontalAlignment="Stretch"
                                     Background="Red"
@@ -1072,7 +769,7 @@
                                     Content="Завершить"
                                     IsEnabled="{Binding Statuss}" />
                                 <TextBlock
-                                    Grid.Row="6"
+                                    Grid.Row="7"
                                     Margin="10"
                                     Padding="5"
                                     HorizontalAlignment="Stretch"

@@ -26,6 +26,10 @@ namespace BuildCompany.db
         public string Login { get; set; }
         public string Password { get; set; }
         public Nullable<int> IdRole { get; set; }
+        public string Adres { get; set; }
+        public string TelNumber { get; set; }
+        public string PassportSeria { get; set; }
+        public string PassportNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EquipmentRent> EquipmentRent { get; set; }

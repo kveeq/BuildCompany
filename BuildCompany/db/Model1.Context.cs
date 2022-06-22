@@ -25,11 +25,13 @@ namespace BuildCompany.db
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<Equipment> Equipment { get; set; }
         public virtual DbSet<EquipmentRent> EquipmentRent { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Services> Services { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Timetable> Timetable { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Zakaz> Zakaz { get; set; }
     }

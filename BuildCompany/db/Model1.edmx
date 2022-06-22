@@ -4,7 +4,18 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище BuildCompanyModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище BuildCompanyModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fio" Type="nvarchar" MaxLength="50" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="TelNumber" Type="nvarchar" MaxLength="11" />
+          <Property Name="Photo" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="Equipment">
           <Key>
             <PropertyRef Name="Id" />
@@ -12,6 +23,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="300" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="EquipmentRent">
           <Key>
@@ -51,6 +63,21 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="Timetable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Monday" Type="bit" />
+          <Property Name="Thuesday" Type="bit" />
+          <Property Name="Wednesday" Type="bit" />
+          <Property Name="Thursday" Type="bit" />
+          <Property Name="Friday" Type="bit" />
+          <Property Name="Saturday" Type="bit" />
+          <Property Name="Sunday" Type="bit" />
+          <Property Name="IdEmoloyee" Type="int" />
+          <Property Name="IdService" Type="int" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -60,6 +87,10 @@
           <Property Name="Login" Type="nvarchar" MaxLength="30" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="IdRole" Type="int" />
+          <Property Name="Adres" Type="nvarchar" MaxLength="300" />
+          <Property Name="TelNumber" Type="nvarchar" MaxLength="11" />
+          <Property Name="PassportSeria" Type="nvarchar" MaxLength="4" />
+          <Property Name="PassportNumber" Type="nvarchar" MaxLength="6" />
         </EntityType>
         <EntityType Name="Zakaz">
           <Key>
@@ -74,6 +105,7 @@
           <Property Name="Accept" Type="bit" />
           <Property Name="ExitDate" Type="date" />
           <Property Name="Statuss" Type="bit" />
+          <Property Name="IdEmployee" Type="int" />
         </EntityType>
         <Association Name="FK_EquipmentRent_Equipment">
           <End Role="Equipment" Type="Self.Equipment" Multiplicity="0..1" />
@@ -99,6 +131,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Timetable_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Timetable">
+              <PropertyRef Name="IdEmoloyee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Timetable_Services">
+          <End Role="Services" Type="Self.Services" Multiplicity="0..1" />
+          <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Timetable">
+              <PropertyRef Name="IdService" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Role">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -108,6 +164,18 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakaz_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Zakaz">
+              <PropertyRef Name="IdEmployee" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -136,11 +204,13 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище BuildCompanyModelContainer">
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Equipment" EntityType="Self.Equipment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EquipmentRent" EntityType="Self.EquipmentRent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Services" EntityType="Self.Services" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Timetable" EntityType="Self.Timetable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zakaz" EntityType="Self.Zakaz" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_EquipmentRent_Equipment" Association="Self.FK_EquipmentRent_Equipment">
@@ -151,9 +221,21 @@
             <End Role="User" EntitySet="User" />
             <End Role="EquipmentRent" EntitySet="EquipmentRent" />
           </AssociationSet>
+          <AssociationSet Name="FK_Timetable_Employee" Association="Self.FK_Timetable_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Timetable" EntitySet="Timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Timetable_Services" Association="Self.FK_Timetable_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="Timetable" EntitySet="Timetable" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakaz_Employee" Association="Self.FK_Zakaz_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Zakaz" EntitySet="Zakaz" />
           </AssociationSet>
           <AssociationSet Name="FK_Zakaz_Services" Association="Self.FK_Zakaz_Services">
             <End Role="Services" EntitySet="Services" />
@@ -164,11 +246,23 @@
             <End Role="Zakaz" EntitySet="Zakaz" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BuildCompanyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TelNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Timetable" Relationship="Self.FK_Timetable_Employee" FromRole="Employee" ToRole="Timetable" />
+          <NavigationProperty Name="Zakaz" Relationship="BuildCompanyModel.FK_Zakaz_Employee" FromRole="Employee" ToRole="Zakaz" />
+        </EntityType>
         <EntityType Name="Equipment">
           <Key>
             <PropertyRef Name="Id" />
@@ -177,6 +271,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="EquipmentRent" Relationship="Self.FK_EquipmentRent_Equipment" FromRole="Equipment" ToRole="EquipmentRent" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="EquipmentRent">
           <Key>
@@ -208,6 +303,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Decimal" Precision="7" Scale="2" />
+          <NavigationProperty Name="Timetable" Relationship="Self.FK_Timetable_Services" FromRole="Services" ToRole="Timetable" />
           <NavigationProperty Name="Zakaz" Relationship="Self.FK_Zakaz_Services" FromRole="Services" ToRole="Zakaz" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -220,6 +316,23 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityType Name="Timetable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Monday" Type="Boolean" />
+          <Property Name="Thuesday" Type="Boolean" />
+          <Property Name="Wednesday" Type="Boolean" />
+          <Property Name="Thursday" Type="Boolean" />
+          <Property Name="Friday" Type="Boolean" />
+          <Property Name="Saturday" Type="Boolean" />
+          <Property Name="Sunday" Type="Boolean" />
+          <Property Name="IdEmoloyee" Type="Int32" />
+          <Property Name="IdService" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Timetable_Employee" FromRole="Timetable" ToRole="Employee" />
+          <NavigationProperty Name="Services" Relationship="Self.FK_Timetable_Services" FromRole="Timetable" ToRole="Services" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -229,6 +342,10 @@
           <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IdRole" Type="Int32" />
+          <Property Name="Adres" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="TelNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="PassportSeria" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="PassportNumber" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="EquipmentRent" Relationship="Self.FK_EquipmentRent_User" FromRole="User" ToRole="EquipmentRent" />
           <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
           <NavigationProperty Name="Zakaz" Relationship="Self.FK_Zakaz_User" FromRole="User" ToRole="Zakaz" />
@@ -248,7 +365,21 @@
           <Property Name="Statuss" Type="Boolean" />
           <NavigationProperty Name="Services" Relationship="Self.FK_Zakaz_Services" FromRole="Zakaz" ToRole="Services" />
           <NavigationProperty Name="User" Relationship="Self.FK_Zakaz_User" FromRole="Zakaz" ToRole="User" />
+          <Property Name="IdEmployee" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="BuildCompanyModel.FK_Zakaz_Employee" FromRole="Zakaz" ToRole="Employee" />
         </EntityType>
+        <Association Name="FK_Timetable_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Timetable">
+              <PropertyRef Name="IdEmoloyee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EquipmentRent_Equipment">
           <End Role="Equipment" Type="Self.Equipment" Multiplicity="0..1" />
           <End Role="EquipmentRent" Type="Self.EquipmentRent" Multiplicity="*" />
@@ -285,6 +416,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Timetable_Services">
+          <End Role="Services" Type="Self.Services" Multiplicity="0..1" />
+          <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Timetable">
+              <PropertyRef Name="IdService" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Zakaz_Services">
           <End Role="Services" Type="Self.Services" Multiplicity="0..1" />
           <End Role="Zakaz" Type="Self.Zakaz" Multiplicity="*" />
@@ -310,13 +453,19 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="BuildCompanyEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Employee" EntityType="Self.Employee" />
           <EntitySet Name="Equipment" EntityType="Self.Equipment" />
           <EntitySet Name="EquipmentRent" EntityType="Self.EquipmentRent" />
           <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="Services" EntityType="Self.Services" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Timetable" EntityType="Self.Timetable" />
           <EntitySet Name="User" EntityType="Self.User" />
           <EntitySet Name="Zakaz" EntityType="Self.Zakaz" />
+          <AssociationSet Name="FK_Timetable_Employee" Association="Self.FK_Timetable_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Timetable" EntitySet="Timetable" />
+          </AssociationSet>
           <AssociationSet Name="FK_EquipmentRent_Equipment" Association="Self.FK_EquipmentRent_Equipment">
             <End Role="Equipment" EntitySet="Equipment" />
             <End Role="EquipmentRent" EntitySet="EquipmentRent" />
@@ -329,6 +478,10 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <AssociationSet Name="FK_Timetable_Services" Association="Self.FK_Timetable_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="Timetable" EntitySet="Timetable" />
+          </AssociationSet>
           <AssociationSet Name="FK_Zakaz_Services" Association="Self.FK_Zakaz_Services">
             <End Role="Services" EntitySet="Services" />
             <End Role="Zakaz" EntitySet="Zakaz" />
@@ -337,16 +490,45 @@
             <End Role="User" EntitySet="User" />
             <End Role="Zakaz" EntitySet="Zakaz" />
           </AssociationSet>
+          <AssociationSet Name="FK_Zakaz_Employee" Association="BuildCompanyModel.FK_Zakaz_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Zakaz" EntitySet="Zakaz" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Zakaz_Employee">
+          <End Type="BuildCompanyModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="BuildCompanyModel.Zakaz" Role="Zakaz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Zakaz">
+              <PropertyRef Name="IdEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище BuildCompanyModelContainer" CdmEntityContainer="BuildCompanyEntities1">
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="BuildCompanyModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Fio" ColumnName="Fio" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="TelNumber" ColumnName="TelNumber" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Equipment">
             <EntityTypeMapping TypeName="BuildCompanyModel.Equipment">
               <MappingFragment StoreEntitySet="Equipment">
+                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -395,6 +577,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Timetable">
+            <EntityTypeMapping TypeName="BuildCompanyModel.Timetable">
+              <MappingFragment StoreEntitySet="Timetable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Monday" ColumnName="Monday" />
+                <ScalarProperty Name="Thuesday" ColumnName="Thuesday" />
+                <ScalarProperty Name="Wednesday" ColumnName="Wednesday" />
+                <ScalarProperty Name="Thursday" ColumnName="Thursday" />
+                <ScalarProperty Name="Friday" ColumnName="Friday" />
+                <ScalarProperty Name="Saturday" ColumnName="Saturday" />
+                <ScalarProperty Name="Sunday" ColumnName="Sunday" />
+                <ScalarProperty Name="IdEmoloyee" ColumnName="IdEmoloyee" />
+                <ScalarProperty Name="IdService" ColumnName="IdService" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="BuildCompanyModel.User">
               <MappingFragment StoreEntitySet="User">
@@ -403,12 +601,17 @@
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="TelNumber" ColumnName="TelNumber" />
+                <ScalarProperty Name="PassportSeria" ColumnName="PassportSeria" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Zakaz">
             <EntityTypeMapping TypeName="BuildCompanyModel.Zakaz">
               <MappingFragment StoreEntitySet="Zakaz">
+                <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="IdService" ColumnName="IdService" />

@@ -17,6 +17,7 @@ namespace BuildCompany.db
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Services()
         {
+            this.Timetable = new HashSet<Timetable>();
             this.Zakaz = new HashSet<Zakaz>();
         }
     
@@ -25,6 +26,8 @@ namespace BuildCompany.db
         public string Description { get; set; }
         public Nullable<decimal> Price { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Timetable> Timetable { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Zakaz> Zakaz { get; set; }
     }

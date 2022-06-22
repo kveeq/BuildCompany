@@ -37,6 +37,7 @@ namespace BuildCompany.View
                 Equipment equipment = new Equipment();
                 equipment.Name = NameTxt.Text;
                 equipment.Description = DescriptionTxt.Text;
+                equipment.Price = Convert.ToDecimal(PriceTxt.Text);
                 App.db.Equipment.Add(equipment);
                 App.db.SaveChanges();
                 MainWindow.action?.Invoke();

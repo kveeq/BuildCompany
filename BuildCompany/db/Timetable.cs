@@ -12,21 +12,20 @@ namespace BuildCompany.db
     using System;
     using System.Collections.Generic;
     
-    public partial class Zakaz
+    public partial class Timetable
     {
         public int Id { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
+        public Nullable<bool> Monday { get; set; }
+        public Nullable<bool> Thuesday { get; set; }
+        public Nullable<bool> Wednesday { get; set; }
+        public Nullable<bool> Thursday { get; set; }
+        public Nullable<bool> Friday { get; set; }
+        public Nullable<bool> Saturday { get; set; }
+        public Nullable<bool> Sunday { get; set; }
+        public Nullable<int> IdEmoloyee { get; set; }
         public Nullable<int> IdService { get; set; }
-        public Nullable<int> IdUser { get; set; }
-        public string Status { get; set; }
-        public Nullable<System.DateTime> AcceptDate { get; set; }
-        public Nullable<bool> Accept { get; set; }
-        public Nullable<System.DateTime> ExitDate { get; set; }
-        public Nullable<bool> Statuss { get; set; }
-        public Nullable<int> IdEmployee { get; set; }
     
-        public virtual Services Services { get; set; }
-        public virtual User User { get; set; }
         public virtual Employee Employee { get; set; }
+        public virtual Services Services { get; set; }
     }
 }
