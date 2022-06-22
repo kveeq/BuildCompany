@@ -194,15 +194,16 @@ namespace BuildCompany.View
             }
             else
             {
-                var item = App.db.User.Where(x => x.Id == int.Parse(((Button)sender).CommandParameter.ToString())).FirstOrDefault();
+                var id = Convert.ToInt32(((Button)sender).CommandParameter.ToString());
+                var item = App.db.User.Where(x => x.Id == id).FirstOrDefault();
                 item.Fio = Fio.Text;
                 item.Adres = Adres.Text;
                 item.TelNumber = tel.Text;
                 App.db.SaveChanges();
                 reductProfileBtn.Content = "Редактировать";
-                Fio.IsReadOnly = false;
-                Adres.IsReadOnly = false;
-                tel.IsReadOnly = false;
+                Fio.IsReadOnly = true;
+                Adres.IsReadOnly = true;
+                tel.IsReadOnly = true;
             }
         }
 
